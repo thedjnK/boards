@@ -7,7 +7,7 @@ if(CONFIG_BOARD_BL5340_DVK_CPUAPP_NS)
 endif()
 
 if(CONFIG_BOARD_BL5340_DVK_CPUAPP OR CONFIG_BOARD_BL5340_DVK_CPUAPP_NS)
-board_runner_args(jlink "--device=nrf5340_xxaa_app" "--speed=4000")
+  board_runner_args(jlink "--device=nrf5340_xxaa_app" "--speed=4000")
 endif()
 
 if(CONFIG_TFM_FLASH_MERGED_BINARY)
@@ -15,7 +15,7 @@ if(CONFIG_TFM_FLASH_MERGED_BINARY)
 endif()
 
 if(CONFIG_BOARD_BL5340_DVK_CPUNET)
-board_runner_args(jlink "--device=nrf5340_xxaa_net" "--speed=4000")
+  board_runner_args(jlink "--device=nrf5340_xxaa_net" "--speed=4000")
 endif()
 
 include(${ZEPHYR_BASE}/boards/common/nrfjprog.board.cmake)

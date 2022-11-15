@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019-2020 Nordic Semiconductor ASA
+ * Copyright (c) 2019-2022 Nordic Semiconductor ASA
  * Copyright (c) 2021 Laird Connectivity
  *
  * SPDX-License-Identifier: Apache-2.0
@@ -13,6 +13,9 @@
 		zephyr,uart-mcumgr = &uart0;
 		zephyr,bt-mon-uart = &uart0;
 		zephyr,bt-c2h-uart = &uart0;
+		zephyr,bt-hci-rpmsg-ipc = &ipc0;
+		nordic,802154-spinel-ipc = &ipc0;
+		zephyr,ieee802154 = &ieee802154;
 		zephyr,display = &ili9340;
 	};
 
@@ -84,11 +87,13 @@
 		sw1 = &button2;
 		sw2 = &button3;
 		sw3 = &button4;
+		bootloader-led0 = &led1;
 		mcuboot-button0 = &button1;
 		mcuboot-led0 = &led1;
 		sdhc0 = &sdhc0;
 		watchdog0 = &wdt0;
 		accel0 = &lis3dh;
+		spi-flash0 = &mx25r64;
 	};
 };
 

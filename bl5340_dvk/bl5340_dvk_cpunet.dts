@@ -18,6 +18,9 @@
 		zephyr,uart-mcumgr = &uart0;
 		zephyr,bt-mon-uart = &uart0;
 		zephyr,bt-c2h-uart = &uart0;
+		zephyr,bt-hci-rpmsg-ipc = &ipc0;
+		nordic,802154-spinel-ipc = &ipc0;
+		zephyr,ieee802154 = &ieee802154;
 		zephyr,sram = &sram1;
 		zephyr,flash = &flash1;
 		zephyr,code-partition = &slot0_partition;
@@ -92,6 +95,10 @@
 			reg = <0x0003B000 0x5000>;
 		};
 	};
+};
+
+&ieee802154 {
+	status = "okay";
 };
 
 /* Include shared RAM configuration file */

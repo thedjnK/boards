@@ -11,6 +11,7 @@ flash: 1024
 supported:
   - gpio
   - i2c
+  - i2s
   - pwm
   - qspi
   - spi
@@ -18,3 +19,4 @@ supported:
   - uart
   - usb_cdc
   - usb_device
+  - netif:openthread
