@@ -1,6 +1,7 @@
 /*
  * Copyright (c) 2019-2022 Nordic Semiconductor ASA
  * Copyright (c) 2021 Laird Connectivity
+ * Copyright (c) 2022 thedjnK
  *
  * SPDX-License-Identifier: Apache-2.0
  */
@@ -277,6 +278,11 @@
 	};
 };
 
+zephyr_udc0: &usbd {
+	compatible = "nordic,nrf-usbd";
+	status = "okay";
+};
+
 &flash0 {
 	partitions {
 		compatible = "fixed-partitions";
@@ -327,11 +333,7 @@
 		slot1_ns_partition: partition@A0000 {
 			label = "image-1-nonsecure";
 		};
-		/* 128K */
-		scratch_partition: partition@e0000 {
-			label = "image-scratch";
-			reg = <0x000e0000 0x00020000>;
-		};
+		/* 128K Unused from 0xe0000 */
 		/* 7MB */
 		lfs_partition: partition@100000 {
 			label = "lfs_storage";

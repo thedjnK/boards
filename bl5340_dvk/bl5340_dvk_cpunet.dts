@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2021 Laird Connectivity
+ * Copyright (c) 2022 thedjnK
  *
  * SPDX-License-Identifier: Apache-2.0
  */
@@ -74,25 +75,20 @@
 			label = "mcuboot";
 			reg = <0x00000000 0xc000>;
 		};
-		/* 88K */
+		/* 92K */
 		slot0_partition: partition@c000 {
 			label = "image-0";
-			reg = <0x0000C000 0x16000>;
+			reg = <0x0000C000 0x17000>;
 		};
-		/* 88K */
-		slot1_partition: partition@22000 {
+		/* 92K */
+		slot1_partition: partition@23000 {
 			label = "image-1";
-			reg = <0x00022000 0x16000>;
+			reg = <0x00023000 0x17000>;
 		};
-		/* 12K */
-		scratch_partition: partition@38000 {
-			label = "image-scratch";
-			reg = <0x00038000 0x3000>;
-		};
-		/* 20K */
-		storage_partition: partition@3B000 {
+		/* 24K */
+		storage_partition: partition@3a000 {
 			label = "storage";
-			reg = <0x0003B000 0x5000>;
+			reg = <0x0003a000 0x6000>;
 		};
 	};
 };
