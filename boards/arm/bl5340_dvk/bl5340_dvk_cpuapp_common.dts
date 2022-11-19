@@ -289,22 +289,22 @@ zephyr_udc0: &usbd {
 		#address-cells = <1>;
 		#size-cells = <1>;
 
-		/* 64K */
+		/* 48KB: Bootloader */
 		boot_partition: partition@0 {
 			label = "mcuboot";
-			reg = <0x00000000 0x00010000>;
+			reg = <0x00000000 0x0000c000>;
 		};
 
-		/* 460K */
-		slot0_partition: partition@10000 {
+		/* 128KB: MCUmgr UDP image receiver */
+		slot0_partition: partition@c000 {
 			label = "image-0";
-			reg = <0x00010000 0x73000>;
+			reg = <0x0000c000 0x20000>;
 		};
 
-		/* 460K */
-		slot1_partition: partition@80000 {
+		/* 800KB: Application */
+		slot1_partition: partition@2c000 {
 			label = "image-1";
-			reg = <0x00083000 0x73000>;
+			reg = <0x0002c000 0xca000>;
 		};
 
 		/*
@@ -313,12 +313,12 @@ zephyr_udc0: &usbd {
 		 */
 
 		/*
-		 * Storage partition will be used by FCB/NVS
-		 * if enabled. 40K
+		 * 48KB: Storage partition will be used by FCB/NVS
+		 * if enabled.
 		 */
-		storage_partition: partition@f6000 {
+		storage_partition: partition@f4000 {
 			label = "storage";
-			reg = <0x000f6000 0x0000a000>;
+			reg = <0x000f4000 0x0000c000>;
 		};
 	};
 };
@@ -329,7 +329,7 @@ zephyr_udc0: &usbd {
 		#address-cells = <1>;
 		#size-cells = <1>;
 
-		/* 8MB */
+		/* 8MB: LFS file storage */
 		lfs_partition: partition@0 {
 			label = "lfs_storage";
 			reg = <0x00000000 0x00800000>;
@@ -345,17 +345,15 @@ zephyr_udc0: &usbd {
 
 		sram0_image: image@20000000 {
 			/* Zephyr image(s) memory */
+			reg = <0x20000000 DT_SIZE_K(448)>;
 		};
 
 		sram0_s: image_s@20000000 {
 			/* Secure image memory */
-		};
-
-		sram0_ns: image_ns@20040000 {
-			/* Non-Secure image memory */
+			reg = <0x20000000 0x70000>;
 		};
 	};
 };
 
-/* Include partition configuration file */
-#include "bl5340_dvk_cpuapp_partition_conf.dts"
+/* Include shared RAM configuration file */
+#include "bl5340_dvk_shared_sram_planning_conf.dts"
