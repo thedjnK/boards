@@ -17,6 +17,5 @@
 		zephyr,sram = &sram0_image;
 		zephyr,flash = &flash0;
 		zephyr,sram-secure-partition = &sram0_s;
-		zephyr,sram-non-secure-partition = &sram0_ns;
 	};
 };

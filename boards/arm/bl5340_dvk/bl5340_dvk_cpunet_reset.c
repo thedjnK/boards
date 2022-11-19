@@ -15,12 +15,10 @@ LOG_MODULE_REGISTER(bl5340_dvk_cpuapp, CONFIG_LOG_DEFAULT_LEVEL);
 
 static void remoteproc_mgr_config(void)
 {
-#if !defined(CONFIG_TRUSTED_EXECUTION_NONSECURE)
 	/* Retain nRF5340 Network MCU in Secure domain (bus
 	 * accesses by Network MCU will have Secure attribute set).
 	 */
 	NRF_SPU->EXTDOMAIN[0].PERM = 1 << 4;
-#endif /* !CONFIG_TRUSTED_EXECUTION_NONSECURE */
 }
 
 static int remoteproc_mgr_boot(const struct device *dev)
@@ -30,7 +28,6 @@ static int remoteproc_mgr_boot(const struct device *dev)
 	/* Secure domain may configure permissions for the Network MCU. */
 	remoteproc_mgr_config();
 
-#if !defined(CONFIG_TRUSTED_EXECUTION_SECURE)
 	/*
 	 * Building Zephyr with CONFIG_TRUSTED_EXECUTION_SECURE=y implies
 	 * building also a Non-Secure image. The Non-Secure image will, in
@@ -42,7 +39,6 @@ static int remoteproc_mgr_boot(const struct device *dev)
 	NRF_RESET->NETWORK.FORCEOFF = RESET_NETWORK_FORCEOFF_FORCEOFF_Release;
 
 	LOG_DBG("Network MCU released.");
-#endif /* !CONFIG_TRUSTED_EXECUTION_SECURE */
 
 	return 0;
 }
