@@ -17,6 +17,7 @@
 		zephyr,bt-hci-rpmsg-ipc = &ipc0;
 		nordic,802154-spinel-ipc = &ipc0;
 		zephyr,ieee802154 = &ieee802154;
+		zephyr,code-partition = &slot0_partition;
 	};
 
 	/* Main LEDs and buttons are on an I2C TCA9538 GPIO port expander */
@@ -272,16 +273,16 @@ zephyr_udc0: &usbd {
 			reg = <0x00000000 0x0000c000>;
 		};
 
-		/* 128KB: MCUmgr UDP image receiver */
+		/* 800KB: Application */
 		slot0_partition: partition@c000 {
 			label = "image-0";
-			reg = <0x0000c000 0x20000>;
+			reg = <0x0000c000 0xc8000>;
 		};
 
-		/* 800KB: Application */
-		slot1_partition: partition@2c000 {
+		/* 128KB: MCUmgr UDP image receiver */
+		slot1_partition: partition@d4000 {
 			label = "image-1";
-			reg = <0x0002c000 0xca000>;
+			reg = <0x000d4000 0x20000>;
 		};
 
 		/* 48KB: Storage partition (NVS) */
