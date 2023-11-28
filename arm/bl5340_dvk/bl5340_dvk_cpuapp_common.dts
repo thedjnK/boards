@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2019-2022 Nordic Semiconductor ASA
  * Copyright (c) 2021 Laird Connectivity
- * Copyright (c) 2022 thedjnK
+ * Copyright (c) 2022-2023 thedjnK
  *
  * SPDX-License-Identifier: Apache-2.0
  */
@@ -18,6 +18,7 @@
 		nordic,802154-spinel-ipc = &ipc0;
 		zephyr,ieee802154 = &ieee802154;
 		zephyr,code-partition = &slot1_partition;
+		zephyr,boot-mode = &boot_mode0;
 	};
 
 	/* Main LEDs and buttons are on an I2C TCA9538 GPIO port expander */
@@ -112,6 +113,16 @@
 
 &gpio1 {
 	status = "okay";
+};
+
+&gpregret1 {
+	status = "okay";
+
+	boot_mode0: boot_mode@0 {
+		compatible = "zephyr,retention";
+		status = "okay";
+		reg = <0x0 0x1>;
+	};
 };
 
 &i2c1 {
