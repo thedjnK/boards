@@ -1,0 +1,10 @@
+description: Switch (FET/transistor) output
+
+compatible: "gpio-switch"
+
+properties:
+  gpios:
+    type: phandle-array
+    required: true
+    description: |
+      GPIO output
