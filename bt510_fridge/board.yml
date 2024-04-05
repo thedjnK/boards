@@ -1,0 +1,5 @@
+board:
+  name: bt510_fridge
+  vendor: thedjnK
+  socs:
+    - name: nrf52840

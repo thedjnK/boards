@@ -5,9 +5,6 @@
 
 if BOARD_BT510_FRIDGE
 
-config BOARD
-	default "bt510_fridge"
-
 config BT_CTLR
 	default BT
 

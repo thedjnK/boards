@@ -52,10 +52,10 @@
 	};
 
 	switching {
-		compatible = "gpio-switch";
 		compressor: compressor_0 {
+			/* Compressor gate output */
+			compatible = "gpio-switch";
 			gpios = <&gpio1 14 GPIO_ACTIVE_HIGH>;
-			label = "Compressor gate output";
 		};
 	};
 
@@ -63,9 +63,6 @@
 	aliases {
 		led0 = &led1a;
 		led1 = &led1b;
-		led2 = &id0;
-		led3 = &id1;
-		led4 = &id2;
 		sw0 = &button0;
 		mcuboot-button0 = &button0;
 		mcuboot-led0 = &led1a;

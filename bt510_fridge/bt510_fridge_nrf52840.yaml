@@ -1,4 +1,4 @@
-identifier: bt510_fridge
+identifier: bt510_fridge/nrf52840
 name: BT510
 type: mcu
 arch: arm
