@@ -11,7 +11,7 @@
 
 #include <soc.h>
 
-LOG_MODULE_REGISTER(bl5340_dvk_cpuapp, CONFIG_LOG_DEFAULT_LEVEL);
+LOG_MODULE_REGISTER(bl5340_dvk_net_nrf5340_cpuapp, CONFIG_LOG_DEFAULT_LEVEL);
 
 static void remoteproc_mgr_config(void)
 {

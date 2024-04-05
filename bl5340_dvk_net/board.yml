@@ -1,0 +1,14 @@
+board:
+  name: bl5340_dvk_net
+  vendor: thedjnK
+  revision:
+    format: number
+    default: "1"
+    revisions:
+      - name: "1"
+      - name: "0"
+  socs:
+    - name: nrf5340
+      variants:
+        - name: ns
+          cpucluster: cpuapp
