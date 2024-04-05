@@ -1,0 +1,18 @@
+identifier: bl652_breakout
+name: bl652 breakout
+type: mcu
+arch: arm
+toolchain:
+  - zephyr
+  - gnuarmemb
+  - xtools
+ram: 64
+flash: 512
+supported:
+  - adc
+  - nvs
+  - i2c
+  - pwm
+  - spi
+  - watchdog
+vendor: ogatatsu

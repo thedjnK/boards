@@ -1,0 +1,5 @@
+# Copyright (c) 2024 thedjnK
+# SPDX-License-Identifier: Apache-2.0
+
+config BOARD_BL652_BREAKOUT
+	select SOC_NRF52832_QFAA

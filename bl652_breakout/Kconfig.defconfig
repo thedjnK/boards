@@ -1,0 +1,5 @@
+# Copyright (c) 2024 thedjnK
+# SPDX-License-Identifier: Apache-2.0
+
+config BT_CTLR
+	default BT if BOARD_BL652_BREAKOUT
