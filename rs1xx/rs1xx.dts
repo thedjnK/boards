@@ -99,10 +99,10 @@
 		spi-max-frequency = <1000000>;
 		jedec-id = [1f 44 02];
 		size = <0x400000>;
-		has-lock = <0xbc>;
-		has-dpd;
-		t-enter-dpd = <500>;
-		t-exit-dpd = <20>;
+		has-lock = <0x7f>;
+/*		has-dpd;*/
+		t-enter-dpd = <1000>;
+		t-exit-dpd = <1000>;
 	};
 
 	lora0: lora@1 {
