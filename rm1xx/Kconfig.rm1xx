@@ -1,0 +1,5 @@
+# Copyright (c) 2024 Jamie M.
+# SPDX-License-Identifier: Apache-2.0
+
+config BOARD_RM1XX
+	select SOC_NRF51822_QFAC
