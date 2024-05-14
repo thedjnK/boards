@@ -1,0 +1,5 @@
+board:
+  name: rs1xx
+  vendor: lairdconnect
+  socs:
+  - name: nrf51822
