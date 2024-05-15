@@ -6,4 +6,7 @@ if BOARD_RM1XX
 config BT_CTLR
 	default BT
 
+config SPI_NOR_CS_WAIT_DELAY
+	default 40
+
 endif # BOARD_RM1XX
