@@ -37,6 +37,12 @@
 
 &gpio0 {
 	status = "okay";
+
+	whisper {
+		gpio-hog;
+		gpios = <20 GPIO_ACTIVE_HIGH>;
+		output-low;
+	};
 };
 
 &i2c0 {
