@@ -1,5 +1,5 @@
-identifier: rm1xx
-name: RM1xx
+identifier: rs1xx
+name: RS1xx
 type: mcu
 arch: arm
 toolchain:
