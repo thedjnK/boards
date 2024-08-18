@@ -292,7 +292,7 @@
 	pinctrl-names = "default", "sleep";
 	cs-gpios = <&gpio0 11 0>;
 
-	mx25r4035fzuil0@0 {
+	mx25r4035 : mx25r4035fzuil0@0 {
 		compatible = "jedec,spi-nor";
 		reg = <0>;
 		spi-max-frequency = <8000000>;
@@ -319,25 +319,34 @@
 		/* 48KiB */
 		boot_partition: partition@0 {
 			label = "mcuboot";
-			reg = <0x000000000 0xC000>;
+			reg = <0x000000000 0xc000>;
 		};
 
-		/* 304KiB */
+		/* 440KiB */
 		slot0_partition: partition@c000 {
 			label = "image-0";
-			reg = <0x0000C000 0x4c000>;
-		};
-
-		/* 136KiB */
-		slot1_partition: partition@58000 {
-			label = "image-1";
-			reg = <0x00058000 0x22000>;
+			reg = <0x0000c000 0x6e000>;
 		};
 
 		/* 24KiB */
 		storage_partition: partition@7a000 {
 			label = "storage";
-			reg = <0x0007A000 0x00006000>;
+			reg = <0x0007a000 0x00006000>;
 		};
 	};
+};
+
+&mx25r4035 {
+	partitions {
+		compatible = "fixed-partitions";
+		#address-cells = <1>;
+		#size-cells = <1>;
+
+		/* 440KiB */
+		slot1_partition: partition@0 {
+			label = "image-1";
+			reg = <0x00000000 0x6e000>;
+		};
+
+		/* 72KiB unused */
 };
