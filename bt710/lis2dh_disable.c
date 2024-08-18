@@ -2,6 +2,7 @@
  * Copyright (c) 2024 Jamie M.
  */
 
+#include <stdio.h>
 #include <zephyr/kernel.h>
 #include <zephyr/types.h>
 #include <zephyr/init.h>
