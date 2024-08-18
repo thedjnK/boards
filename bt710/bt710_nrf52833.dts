@@ -213,7 +213,7 @@
 &uart0 {
 	compatible = "nordic,nrf-uart";
 	current-speed = <115200>;
-	status = "okay";
+	status = "disabled";
 	pinctrl-0 = <&uart0_default>;
 	pinctrl-1 = <&uart0_sleep>;
 	pinctrl-names = "default", "sleep";
@@ -230,7 +230,8 @@
 		compatible = "st,lis2dh12", "st,lis2dh";
 		reg = <0x18>;
 		irq-gpios = <&gpio1 5 GPIO_ACTIVE_HIGH>,
-				<&gpio1 12 GPIO_ACTIVE_HIGH>;
+			    <&gpio1 12 GPIO_ACTIVE_HIGH>;
+		disconnect-sdo-sa0-pull-up;
 	};
 };
 
@@ -250,6 +251,8 @@
 		has-dpd;
 		t-enter-dpd = <10000>;
 		t-exit-dpd = <35000>;
+		dpd-wakeup-sequence = <30000 20 35000>;
+		mxicy,mx25r-power-mode = "low-power";
 		jedec-id = [c2 28 13];
 	};
 };
