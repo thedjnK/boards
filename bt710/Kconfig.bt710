@@ -1,0 +1,8 @@
+# BT710 board configuration
+
+# Copyright (c) 2020 Laird Connectivity
+# Copyright (c) 2024 Jamie M.
+# SPDX-License-Identifier: Apache-2.0
+
+config BOARD_BT710
+	select SOC_NRF52833_QIAA
