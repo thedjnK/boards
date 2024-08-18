@@ -13,4 +13,10 @@ config IEEE802154_NRF5
 config BT_CTLR
 	default BT
 
+config SPI_NOR_FLASH_LAYOUT_PAGE_SIZE
+	default 4096 if SPI_NOR
+
+config SPI_NOR_IDLE_IN_DPD
+	default y if SPI_NOR
+
 endif # BOARD_BT710
