@@ -260,7 +260,7 @@
 };
 
 &uart0 {
-	compatible = "nordic,nrf-uart";
+	compatible = "nordic,nrf-uarte";
 	current-speed = <115200>;
 	status = "disabled";
 	pinctrl-0 = <&uart0_default>;
@@ -269,7 +269,7 @@
 };
 
 &i2c0 {
-	compatible = "nordic,nrf-twi";
+	compatible = "nordic,nrf-twim";
 	status = "okay";
 	pinctrl-0 = <&i2c0_default>;
 	pinctrl-1 = <&i2c0_sleep>;
@@ -285,7 +285,7 @@
 };
 
 &spi1 {
-	compatible = "nordic,nrf-spi";
+	compatible = "nordic,nrf-spim";
 	status = "okay";
 	pinctrl-0 = <&spi1_default>;
 	pinctrl-1 = <&spi1_sleep>;
