@@ -100,10 +100,10 @@
 	buttons {
 		compatible = "gpio-keys";
 		button0: button_0 {
-			gpios = <&gpio1 2 GPIO_PULL_UP>;
+			gpios = <&gpio1 2 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
 			label = "Push button switch 0 (SW0)";
 		};
-		switch1: button_1 {
+		button1: button_1 {
 			gpios = <&gpio0 25 GPIO_PULL_DOWN>;
 			label = "Switch 1 (SW1)";
 		};
@@ -147,7 +147,8 @@
 		led5pwm = &led5red_pwm;
 */
 		sw0 = &button0;
-		sw1 = &switch1;
+		mcuboot-button0 = &button0;
+		sw1 = &button1;
 /*
 		piezo = &piezo0;
 		vibemotor = &vibe0;
@@ -267,22 +268,25 @@
 		#address-cells = <1>;
 		#size-cells = <1>;
 
+		/* 48KiB */
 		boot_partition: partition@0 {
 			label = "mcuboot";
 			reg = <0x000000000 0xC000>;
 		};
+
+		/* 304KiB */
 		slot0_partition: partition@c000 {
 			label = "image-0";
-			reg = <0x0000C000 0x32000>;
+			reg = <0x0000C000 0x4c000>;
 		};
-		slot1_partition: partition@3e000 {
+
+		/* 136KiB */
+		slot1_partition: partition@58000 {
 			label = "image-1";
-			reg = <0x0003E000 0x32000>;
+			reg = <0x00058000 0x22000>;
 		};
-		scratch_partition: partition@70000 {
-			label = "image-scratch";
-			reg = <0x00070000 0xA000>;
-		};
+
+		/* 24KiB */
 		storage_partition: partition@7a000 {
 			label = "storage";
 			reg = <0x0007A000 0x00006000>;
