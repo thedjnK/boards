@@ -34,6 +34,10 @@
 			gpios = <&gpio0 24 GPIO_ACTIVE_HIGH>;
 			label = "Green LED 1";
 		};
+		/* Given that the original board file can be summed up as a complete joke I do
+		 * wonder if this is yet another fuck up and should be p0.25 since p0.05 is a UART
+		 * pin, but who knows, who cares...
+		 */
 		led1blue: led_1blue {
 			gpios = <&gpio0 5 GPIO_ACTIVE_HIGH>;
 			label = "Blue LED 1";
@@ -103,6 +107,11 @@
 			gpios = <&gpio1 2 (GPIO_PULL_UP | GPIO_ACTIVE_LOW)>;
 			label = "Push button switch 0 (SW0)";
 		};
+		/* This isn't even a button, who knows what it actually is, maybe it's the antenna
+		 * select line, or one of them? But since that's an output then it's completely
+		 * asinine that whatever this is has been declared an input given there is only
+		 * one input on the whole sensor
+		 */
 		button1: button_1 {
 			gpios = <&gpio0 25 GPIO_PULL_DOWN>;
 			label = "Switch 1 (SW1)";
@@ -193,10 +202,49 @@
 
 &gpio0 {
 	status = "okay";
+
+	/* What a random bunch of GPIOs, 10/10 for a great board file from the vendor where half of
+	 * these pins are just completely undefined and not mentioned. No clue as what they do but
+	 * they prevent the sensor from using 2.5mA continuously
+	 */
+	highport0 {
+		gpio-hog;
+		gpios = <31 GPIO_ACTIVE_HIGH>;
+		output-high;
+	};
+
+	lowport0 {
+		gpio-hog;
+		gpios = <13 GPIO_ACTIVE_HIGH>,
+			<14 GPIO_ACTIVE_HIGH>,
+			<15 GPIO_ACTIVE_HIGH>,
+			<16 GPIO_ACTIVE_HIGH>,
+			<20 GPIO_ACTIVE_HIGH>,
+			<21 GPIO_ACTIVE_HIGH>,
+			<24 GPIO_ACTIVE_HIGH>,
+			<25 GPIO_ACTIVE_HIGH>,
+			<9 GPIO_ACTIVE_HIGH>,
+			<28 GPIO_ACTIVE_HIGH>;
+		output-low;
+	};
 };
 
 &gpio1 {
 	status = "okay";
+
+	highport1 {
+		gpio-hog;
+		gpios = <7 GPIO_ACTIVE_HIGH>;
+		output-high;
+	};
+
+	lowport1 {
+		gpio-hog;
+		gpios = <6 GPIO_ACTIVE_HIGH>,
+			<8 GPIO_ACTIVE_HIGH>;
+		output-low;
+	};
+
 };
 
 &reg0 {
