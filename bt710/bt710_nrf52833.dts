@@ -198,6 +198,18 @@
 	status = "okay";
 };
 
+&reg0 {
+	status = "okay";
+};
+
+&reg1 {
+	regulator-initial-mode = <NRF5X_REG_MODE_DCDC>;
+};
+
+&uicr {
+	gpio-as-nreset;
+};
+
 &uart0 {
 	compatible = "nordic,nrf-uart";
 	current-speed = <115200>;
@@ -220,11 +232,6 @@
 		irq-gpios = <&gpio1 5 GPIO_ACTIVE_HIGH>,
 				<&gpio1 12 GPIO_ACTIVE_HIGH>;
 	};
-
-	bme280@77 {
-		compatible = "bosch,bme280";
-		reg = <0x77>;
-	};
 };
 
 &spi1 {
@@ -234,6 +241,7 @@
 	pinctrl-1 = <&spi1_sleep>;
 	pinctrl-names = "default", "sleep";
 	cs-gpios = <&gpio0 11 0>;
+
 	mx25r4035fzuil0@0 {
 		compatible = "jedec,spi-nor";
 		reg = <0>;
