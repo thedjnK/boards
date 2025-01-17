@@ -1,0 +1,9 @@
+board:
+  name: bl54l15_breakout
+  full_name: BL54L15 breakout board
+  vendor: thedjnK
+  socs:
+  - name: nrf54l15
+    variants:
+    - name: xip
+      cpucluster: cpuflpr

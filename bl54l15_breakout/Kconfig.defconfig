@@ -1,0 +1,9 @@
+# Copyright (c) 2024 Nordic Semiconductor ASA
+# SPDX-License-Identifier: Apache-2.0
+
+if BOARD_BL54L15DK_BREAKOUT_NRF54L15_CPUAPP
+
+config ROM_START_OFFSET
+	default 0x800 if BOOTLOADER_MCUBOOT
+
+endif # BOARD_BL54L15DK_BREAKOUT_NRF54L15_CPUAPP
