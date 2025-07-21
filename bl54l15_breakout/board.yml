@@ -3,7 +3,11 @@ board:
   full_name: BL54L15 breakout board
   vendor: thedjnK
   socs:
-  - name: nrf54l15
-    variants:
-    - name: xip
-      cpucluster: cpuflpr
+    - name: nrf54l15
+      variants:
+        - name: xip
+          cpucluster: cpuflpr
+        - name: lora
+          cpucluster: cpuapp
+        - name: lora
+          cpucluster: cpuflpr

@@ -1,0 +1,36 @@
+/*
+ * Copyright (c) 2025 Jamie M.
+ *
+ * All right reserved. This code is NOT apache or FOSS/copyleft licensed.
+ */
+
+#include <zephyr/dt-bindings/lora/sx126x.h>
+
+/ {
+
+	aliases {
+		lora0 = &sx1262;
+	};
+
+};
+
+&spi00 {
+	status = "okay";
+	cs-gpios = <&gpio2 6 GPIO_ACTIVE_LOW>;
+	pinctrl-0 = <&spi00_default>;
+	pinctrl-1 = <&spi00_sleep>;
+	pinctrl-names = "default", "sleep";
+
+	sx1262: sx1262@0 {
+		compatible = "semtech,sx1262";
+		reg = <0>;
+		spi-max-frequency = <DT_FREQ_M(8)>;
+		reset-gpios = <&gpio2 3 GPIO_ACTIVE_LOW>;
+		busy-gpios = <&gpio2 8 GPIO_ACTIVE_HIGH>;
+		dio1-gpios = <&gpio1 10 GPIO_ACTIVE_HIGH>;
+		dio2-tx-enable;
+		dio3-tcxo-voltage = <SX126X_DIO3_TCXO_1V7>;
+		rx-enable-gpios = <&gpio2 10 GPIO_ACTIVE_HIGH>;
+		tcxo-power-startup-delay-ms = <6>;
+	};
+};
