@@ -1,8 +1,8 @@
 # Copyright (c) 2024 Nordic Semiconductor ASA
 # SPDX-License-Identifier: Apache-2.0
 
-identifier: bl54l15_breakout/nrf54l15/cpuflpr/lora
-name: BL54L15-Breakout-nRF54L15-Fast-Lightweight-Peripheral-Processor (LoRa)
+identifier: bl54l15_breakout/nrf54l15/cpuflpr/lora/xip
+name: BL54L15-Breakout-nRF54L15-Fast-Lightweight-Peripheral-Processor (RRAM XIP LoRa)
 type: mcu
 arch: riscv
 toolchain:

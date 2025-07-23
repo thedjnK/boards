@@ -1,0 +1,9 @@
+/*
+ * Copyright (c) 2025 Jamie M.
+ *
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+#include "bl54l15_breakout_nrf54l15_cpuflpr.dts"
+#include "bl54l15_breakout_lora_common.dtsi"
+#include "bl54l15_breakout_nrf54l15_cpuflpr_lora.dts"
