@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024 Nordic Semiconductor ASA
+ * Copyright (c) 2025 Jamie M.
  *
  * SPDX-License-Identifier: Apache-2.0
  */
@@ -7,7 +7,59 @@
 #include "bl54l15_breakout_nrf54l15_cpuflpr.dts"
 #include "bl54l15_breakout_lora_common.dtsi"
 
+/delete-node/ &cpuflpr_sram;
+
+/ {
+	reserved-memory {
+		#address-cells = <1>;
+		#size-cells = <1>;
+		ranges;
+
+		sram_tx: memory@2003fc00 {
+			reg = <RAM_IPC_CPUAPP_RX_START RAM_IPC_CPUAPP_RX_SIZE>;
+		};
+
+		sram_rx: memory@2003f800 {
+			reg = <RAM_IPC_CPUAPP_TX_START RAM_IPC_CPUAPP_TX_SIZE>;
+		};
+	};
+
+	soc {
+		cpuflpr_sram: memory@2001fc00 {
+			compatible = "mmio-sram";
+			reg = <RAM_CPUFLPR_START RAM_CPUFLPR_SIZE>;
+			#address-cells = <1>;
+			#size-cells = <1>;
+			ranges = <0x0 RAM_CPUFLPR_START RAM_CPUFLPR_SIZE>;
+		};
+	};
+
+	ipc {
+		ipc0: ipc0 {
+			compatible = "zephyr,ipc-icmsg";
+			dcache-alignment = <RAM_IPC_BLOCK_SIZE>;
+			tx-region = <&sram_tx>;
+			rx-region = <&sram_rx>;
+			mboxes = <&cpuflpr_vevif_rx INTERRUPT_IPC_CPUAPP_TX>, <&cpuflpr_vevif_tx INTERRUPT_IPC_CPUAPP_RX>;
+			mbox-names = "rx", "tx";
+			status = "okay";
+		};
+	};
+};
+
 &cpuflpr_sram {
-	reg = <0x2002f000 DT_SIZE_K(68)>;
-	ranges = <0x0 0x2002f000 0x11000>;
+	reg = <RAM_CPUFLPR_START RAM_CPUFLPR_SIZE>;
+	ranges = <0x0 RAM_CPUFLPR_START RAM_CPUFLPR_SIZE>;
+};
+
+&cpuflpr_vevif_rx {
+	status = "okay";
+};
+
+&cpuflpr_vevif_tx {
+	status = "okay";
+};
+
+&spi00 {
+	status = "okay";
 };

@@ -6,16 +6,90 @@
 
 #include <zephyr/dt-bindings/lora/sx126x.h>
 
-/ {
+/* NVM (RRAM) configuration */
+#define NVM_SIZE DT_SIZE_K(1524)
+#define NVM_SECTOR_SIZE 0x800
 
+#define NVM_CPUAPP_SIZE DT_SIZE_K(1396)
+#define NVM_CPUFLPR_SIZE DT_SIZE_K(128)
+
+#define NVM_CPUAPP_START 0x0
+#define NVM_CPUFLPR_START (NVM_CPUAPP_START + NVM_CPUAPP_SIZE)
+
+#define NVM_USAGE_TOTAL (NVM_CPUFLPR_START + NVM_CPUFLPR_SIZE - NVM_CPUAPP_START)
+
+/* RAM configuration */
+#define RAM_SIZE DT_SIZE_K(256)
+
+#define RAM_CPUAPP_SIZE DT_SIZE_K(127)
+#define RAM_CPUFLPR_SIZE DT_SIZE_K(127)
+#define RAM_IPC_CPUAPP_TX_SIZE 0x400
+#define RAM_IPC_CPUAPP_RX_SIZE 0x400
+#define RAM_IPC_BLOCK_SIZE 32
+
+#define RAM_CPUAPP_START 0x20000000
+#define RAM_CPUFLPR_START (RAM_CPUAPP_START + RAM_CPUAPP_SIZE)
+#define RAM_IPC_CPUAPP_TX_START (RAM_CPUFLPR_START + RAM_CPUFLPR_SIZE)
+#define RAM_IPC_CPUAPP_RX_START (RAM_IPC_CPUAPP_TX_START + RAM_IPC_CPUAPP_TX_SIZE)
+
+#define RAM_USAGE_TOTAL (RAM_IPC_CPUAPP_RX_START + RAM_IPC_CPUAPP_RX_SIZE - RAM_CPUAPP_START)
+
+/* Validation */
+#if RAM_USAGE_TOTAL > RAM_SIZE
+#error "Invalid RAM setup: RAM usage too large"
+#endif
+
+#if (RAM_IPC_CPUAPP_TX_START % RAM_IPC_BLOCK_SIZE) != 0
+#error "Invalid RAM setup: TX IPC block start not aligned"
+#endif
+
+#if (RAM_IPC_CPUAPP_TX_SIZE % RAM_IPC_BLOCK_SIZE) != 0
+#error "Invalid RAM setup: TX IPC block size not aligned"
+#endif
+
+#if (RAM_IPC_CPUAPP_RX_START % RAM_IPC_BLOCK_SIZE) != 0
+#error "Invalid RAM setup: RX IPC block start not aligned"
+#endif
+
+#if (RAM_IPC_CPUAPP_RX_SIZE % RAM_IPC_BLOCK_SIZE) != 0
+#error "Invalid RAM setup: RX IPC block size not aligned"
+#endif
+
+#if NVM_USAGE_TOTAL > NVM_SIZE
+#error "Invalid NVM setup: NVM usage too large"
+#endif
+
+#if (NVM_CPUAPP_SIZE % NVM_SECTOR_SIZE) != 0
+#error "Invalid NVM setup: cpuapp NVM size not sector aligned"
+#endif
+
+#if (NVM_CPUFLPR_SIZE % NVM_SECTOR_SIZE) != 0
+#error "Invalid NVM setup: cpuflpr NVM size not sector aligned"
+#endif
+
+#if (NVM_CPUAPP_START % NVM_SECTOR_SIZE) != 0
+#error "Invalid NVM setup: cpuapp NVM start not sector aligned"
+#endif
+
+#if (NVM_CPUFLPR_START % NVM_SECTOR_SIZE) != 0
+#error "Invalid NVM setup: cpuflpr NVM start not sector aligned"
+#endif
+
+#if NVM_USAGE_TOTAL < NVM_SIZE
+#warning "Non-optimal NVM setup: NVM usage less than NVM size"
+#endif
+
+/* IPC */
+#define INTERRUPT_IPC_CPUAPP_TX 21
+#define INTERRUPT_IPC_CPUAPP_RX 20
+
+/ {
 	aliases {
 		lora0 = &sx1262;
 	};
-
 };
 
 &spi00 {
-	status = "okay";
 	cs-gpios = <&gpio2 6 GPIO_ACTIVE_LOW>;
 	pinctrl-0 = <&spi00_default>;
 	pinctrl-1 = <&spi00_sleep>;

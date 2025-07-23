@@ -6,3 +6,96 @@
 
 #include "bl54l15_breakout_nrf54l15_cpuapp.dts"
 #include "bl54l15_breakout_lora_common.dtsi"
+
+#define NVM_CPUAPP_PARTITION_MCUBOOT_SIZE DT_SIZE_K(32)
+#define NVM_CPUAPP_PARTITION_SLOT0_SIZE DT_SIZE_K(664)
+#define NVM_CPUAPP_PARTITION_SLOT1_SIZE DT_SIZE_K(664)
+#define NVM_CPUAPP_PARTITION_SETTINGS_SIZE DT_SIZE_K(32)
+
+#define NVM_CPUAPP_PARTITION_MCUBOOT_START NVM_CPUAPP_START
+#define NVM_CPUAPP_PARTITION_SLOT0_START (NVM_CPUAPP_PARTITION_MCUBOOT_START + NVM_CPUAPP_PARTITION_MCUBOOT_SIZE)
+#define NVM_CPUAPP_PARTITION_SLOT1_START (NVM_CPUAPP_PARTITION_SLOT0_START + NVM_CPUAPP_PARTITION_SLOT0_SIZE)
+#define NVM_CPUAPP_PARTITION_SETTINGS_START (NVM_CPUAPP_PARTITION_SLOT1_START + NVM_CPUAPP_PARTITION_SLOT1_SIZE)
+
+#define NVM_CPUAPP_USAGE_TOTAL (NVM_CPUAPP_PARTITION_SETTINGS_START + NVM_CPUAPP_PARTITION_SETTINGS_SIZE - NVM_CPUAPP_START)
+
+#if (NVM_CPUAPP_PARTITION_MCUBOOT_SIZE % NVM_SECTOR_SIZE) != 0
+#error "Invalid NVM setup: cpuapp NVM MCUboot size not sector aligned"
+#endif
+
+#if (NVM_CPUAPP_PARTITION_SLOT0_SIZE % NVM_SECTOR_SIZE) != 0
+#error "Invalid NVM setup: cpuapp NVM slot0 size not sector aligned"
+#endif
+
+#if (NVM_CPUAPP_PARTITION_SLOT1_SIZE % NVM_SECTOR_SIZE) != 0
+#error "Invalid NVM setup: cpuapp NVM slot1 size not sector aligned"
+#endif
+
+#if (NVM_CPUAPP_PARTITION_SETTINGS_SIZE % NVM_SECTOR_SIZE) != 0
+#error "Invalid NVM setup: cpuapp NVM settings size not sector aligned"
+#endif
+
+#if (NVM_CPUAPP_PARTITION_SLOT0_START % NVM_SECTOR_SIZE) != 0
+#error "Invalid NVM setup: cpuapp NVM slot0 start not sector aligned"
+#endif
+
+#if (NVM_CPUAPP_PARTITION_SLOT1_START % NVM_SECTOR_SIZE) != 0
+#error "Invalid NVM setup: cpuapp NVM slot1 start not sector aligned"
+#endif
+
+#if (NVM_CPUAPP_PARTITION_SETTINGS_START % NVM_SECTOR_SIZE) != 0
+#error "Invalid NVM setup: cpuapp NVM settings start not sector aligned"
+#endif
+
+#if NVM_CPUAPP_USAGE_TOTAL > NVM_CPUAPP_SIZE
+#error "Invalid NVM setup: cpuapp NVM usage more than NVM size"
+#endif
+
+#if NVM_CPUAPP_USAGE_TOTAL < NVM_CPUAPP_SIZE
+#warning "Non-optimal NVM setup: cpuapp NVM usage less than NVM size"
+#endif
+
+/ {
+	reserved-memory {
+		#address-cells = <1>;
+		#size-cells = <1>;
+		ranges;
+
+		sram_rx: memory@2003f800 {
+			reg = <RAM_IPC_CPUAPP_TX_START RAM_IPC_CPUAPP_TX_SIZE>;
+		};
+
+		sram_tx: memory@2003fc00 {
+			reg = <RAM_IPC_CPUAPP_RX_START RAM_IPC_CPUAPP_RX_SIZE>;
+		};
+	};
+
+	ipc {
+		ipc0: ipc0 {
+			compatible = "zephyr,ipc-icmsg";
+			dcache-alignment = <RAM_IPC_BLOCK_SIZE>;
+			tx-region = <&sram_tx>;
+			rx-region = <&sram_rx>;
+			mboxes = <&cpuapp_vevif_rx INTERRUPT_IPC_CPUAPP_RX>, <&cpuapp_vevif_tx INTERRUPT_IPC_CPUAPP_TX>;
+			mbox-names = "rx", "tx";
+			status = "okay";
+		};
+	};
+};
+
+&cpuapp_sram {
+	reg = <RAM_CPUAPP_START RAM_CPUAPP_SIZE>;
+	ranges = <0x0 RAM_CPUAPP_START RAM_CPUAPP_SIZE>;
+};
+
+&cpuapp_vevif_rx {
+	status = "okay";
+};
+
+&cpuapp_vevif_tx {
+	status = "okay";
+};
+
+&spi00 {
+	status = "disabled";
+};
