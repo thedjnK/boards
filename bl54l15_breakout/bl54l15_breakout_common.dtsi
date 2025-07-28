@@ -10,10 +10,12 @@
 / {
 	leds {
 		compatible = "gpio-leds";
+
 		led0: led_0 {
 			gpios = <&gpio1 8 GPIO_ACTIVE_HIGH>;
 			label = "LED 0";
 		};
+
 		led1: led_1 {
 			gpios = <&gpio0 4 GPIO_ACTIVE_HIGH>;
 			label = "LED 1";
@@ -22,6 +24,7 @@
 
 	pwmleds {
 		compatible = "pwm-leds";
+
 		/*
 		 * PWM signal can be exposed on GPIO pin only within same domain.
 		 * There is only one domain which contains both PWM and GPIO:
