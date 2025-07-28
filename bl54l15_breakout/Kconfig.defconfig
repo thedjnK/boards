@@ -23,9 +23,6 @@ config PM_PARTITION_SIZE_VPR_LAUNCHER
 config PM_RAM_SIZE_VPR_LAUNCHER
 	default 0
 
-config PM_EXTERNAL_FLASH_BASE
-	default 0x165000
-
 config PM_SRAM_BASE
 	default 0x2001fc00
 
