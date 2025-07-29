@@ -1,13 +1,15 @@
 /*
  * Copyright (c) 2025 Jamie M.
  *
- * SPDX-License-Identifier: Apache-2.0
+ * All right reserved. This code is NOT apache or FOSS/copyleft licensed.
  */
 
 #include "bl54l15_breakout_nrf54l15_cpuflpr.dts"
 #include "bl54l15_breakout_lora_common.dtsi"
 
 /delete-node/ &cpuflpr_sram;
+/delete-node/ &cpuflpr_code_partition;
+/delete-node/ &cpuflpr_rram;
 
 / {
 	reserved-memory {
@@ -43,6 +45,26 @@
 			mboxes = <&cpuflpr_vevif_rx INTERRUPT_IPC_CPUAPP_TX>, <&cpuflpr_vevif_tx INTERRUPT_IPC_CPUAPP_RX>;
 			mbox-names = "rx", "tx";
 			status = "okay";
+		};
+	};
+};
+
+&rram_controller {
+	cpuflpr_rram: rram@c800 {
+		compatible = "soc-nv-flash";
+		reg = <(NVM_CPUAPP_PARTITION_SLOT0_START + NVM_CPUFLPR_OFFSET) NVM_CPUFLPR_SIZE>;
+		erase-block-size = <0x1000>;
+		write-block-size = <16>;
+
+		partitions {
+			compatible = "fixed-partitions";
+			#address-cells = <1>;
+			#size-cells = <1>;
+
+			cpuflpr_code_partition: partition@0 {
+				label = "image-0";
+				reg = <0x0 NVM_CPUFLPR_SIZE>;
+			};
 		};
 	};
 };
