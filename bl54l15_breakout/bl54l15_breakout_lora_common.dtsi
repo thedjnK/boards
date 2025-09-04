@@ -14,7 +14,7 @@
  * of this
  */
 #define NVM_CPUAPP_SIZE DT_SIZE_K(1524)
-#define NVM_CPUFLPR_SIZE DT_SIZE_K(112)
+#define NVM_CPUFLPR_SIZE DT_SIZE_K(120)
 
 /* Offset inside of CPUAPP image to place CPUFLPR image */
 #define NVM_CPUFLPR_OFFSET (NVM_SECTOR_SIZE * 2)
