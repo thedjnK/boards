@@ -63,3 +63,7 @@
 	pinctrl-1 = <&pwm20_sleep>;
 	pinctrl-names = "default", "sleep";
 };
+
+&wdt31 {
+	status = "okay";
+};
