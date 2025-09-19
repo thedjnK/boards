@@ -15,11 +15,19 @@
 	model = "ogatatsu BL652 breakout board nRF54L15 Application MCU";
 
 	chosen {
+#if 0
 		zephyr,console = &uart30;
 		zephyr,shell-uart = &uart30;
 		zephyr,uart-mcumgr = &uart30;
 		zephyr,bt-mon-uart = &uart30;
 		zephyr,bt-c2h-uart = &uart30;
+#else
+		zephyr,console = &uart20;
+		zephyr,shell-uart = &uart20;
+		zephyr,uart-mcumgr = &uart20;
+		zephyr,bt-mon-uart = &uart20;
+		zephyr,bt-c2h-uart = &uart20;
+#endif
 		zephyr,flash-controller = &rram_controller;
 		zephyr,flash = &cpuapp_rram;
 		zephyr,ieee802154 = &ieee802154;
@@ -58,9 +66,15 @@
 	status = "okay";
 };
 
+#if 0
 &uart30 {
 	status = "okay";
 };
+#else
+&uart20 {
+	status = "okay";
+};
+#endif
 
 &gpio0 {
 	status = "okay";
@@ -87,7 +101,7 @@
 };
 
 &ieee802154 {
-	status = "okay";
+	status = "disabled";
 };
 
 &temp {

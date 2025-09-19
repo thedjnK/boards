@@ -24,6 +24,10 @@
 		sram_rx: memory@2003f800 {
 			reg = <RAM_IPC_CPUAPP_TX_START RAM_IPC_CPUAPP_TX_SIZE>;
 		};
+
+		cpuflpr_context_save: memory@2003fe00 {
+			reg = <RAM_CPUFLPR_CONTEXT_SAVE_START RAM_CPUFLPR_CONTEXT_SAVE_SIZE>;
+		};
 	};
 
 	soc {
