@@ -15,7 +15,7 @@
 	model = "ogatatsu BL652 breakout board nRF54L15 Application MCU";
 
 	chosen {
-#if 0
+#if 1
 		zephyr,console = &uart30;
 		zephyr,shell-uart = &uart30;
 		zephyr,uart-mcumgr = &uart30;
@@ -66,7 +66,7 @@
 	status = "okay";
 };
 
-#if 0
+#if 1
 &uart30 {
 	status = "okay";
 };
