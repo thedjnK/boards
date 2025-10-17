@@ -13,3 +13,46 @@ board:
           cpucluster: cpuflpr
           variants:
             - name: xip
+runners:
+  run_once:
+    '--recover':
+    - runners:
+      - nrfutil
+      run: first
+      groups:
+      - boards:
+        - bl54l15_breakout/nrf54l15/cpuapp
+        - bl54l15_breakout/nrf54l15/cpuflpr
+        - bl54l15_breakout/nrf54l15/cpuflpr/xip
+      - boards:
+        - bl54l15_breakout/nrf54l15/cpuapp/lora
+        - bl54l15_breakout/nrf54l15/cpuflpr/lora
+        - bl54l15_breakout/nrf54l15/cpuflpr/lora/xip
+    '--erase':
+    - runners:
+      - jlink
+      - nrfutil
+      run: first
+      groups:
+      - boards:
+        - bl54l15_breakout/nrf54l15/cpuapp
+        - bl54l15_breakout/nrf54l15/cpuflpr
+        - bl54l15_breakout/nrf54l15/cpuflpr/xip
+      - boards:
+        - bl54l15_breakout/nrf54l15/cpuapp/lora
+        - bl54l15_breakout/nrf54l15/cpuflpr/lora
+        - bl54l15_breakout/nrf54l15/cpuflpr/lora/xip
+    '--reset':
+    - runners:
+      - jlink
+      - nrfutil
+      run: last
+      groups:
+      - boards:
+        - bl54l15_breakout/nrf54l15/cpuapp
+        - bl54l15_breakout/nrf54l15/cpuflpr
+        - bl54l15_breakout/nrf54l15/cpuflpr/xip
+      - boards:
+        - bl54l15_breakout/nrf54l15/cpuapp/lora
+        - bl54l15_breakout/nrf54l15/cpuflpr/lora
+        - bl54l15_breakout/nrf54l15/cpuflpr/lora/xip
