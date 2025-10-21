@@ -44,7 +44,7 @@
 &rram_controller {
 	cpuapp_rram: rram@0 {
 		compatible = "soc-nv-flash";
-		erase-block-size = <0x1000>;
+		erase-block-size = <0x200>;
 		write-block-size = <16>;
 		reg = <0x0 NVM_CPUAPP_SIZE>;
 
