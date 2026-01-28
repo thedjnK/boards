@@ -1,5 +1,6 @@
 board:
   name: rs1xx
+  full_name: RS1xx sensor
   vendor: lairdconnect
   socs:
   - name: nrf51822

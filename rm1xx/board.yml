@@ -1,5 +1,6 @@
 board:
   name: rm1xx
+  full_name: RM1xx module
   vendor: lairdconnect
   socs:
   - name: nrf51822

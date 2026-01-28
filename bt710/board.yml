@@ -1,5 +1,6 @@
 board:
   name: bt710
+  full_name: BT710
   vendor: thedjnK
   socs:
     - name: nrf52833
