@@ -6,24 +6,3 @@
 
 config ROM_START_OFFSET
 	default 0x800 if BOOTLOADER_MCUBOOT && SOC_NRF54L15_CPUAPP
-
-if BOARD_BL54L15_BREAKOUT_NRF54L15_CPUFLPR_LORA || BOARD_BL54L15_BREAKOUT_NRF54L15_CPUFLPR_LORA_XIP
-
-# Partition manager is meant to make things dynamic and automatically resize things for you,
-# instead it fucks things up, requires a tonne of debugging as to why it's fucking things up then
-# even more configuration for stupid configuration values than if you just used dts in the first
-# place, so it's now got the honary name of partshiton manager to honour how completely shit it is
-
-config PM_SRAM_SIZE
-        default $(dt_node_reg_size_hex,/soc/memory@2001fc00)
-
-config PM_PARTITION_SIZE_VPR_LAUNCHER
-	default 0
-
-config PM_RAM_SIZE_VPR_LAUNCHER
-	default 0
-
-config PM_SRAM_BASE
-	default 0x2001fc00
-
-endif # BOARD_BL54L15_BREAKOUT_NRF54L15_CPUFLPR_LORA || BOARD_BL54L15_BREAKOUT_NRF54L15_CPUFLPR_LORA_XIP
